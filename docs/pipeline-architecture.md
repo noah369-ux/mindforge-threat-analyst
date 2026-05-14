@@ -1,3 +1,7 @@
-## MindForge Pipeline Architecture
+# Pipeline Architecture & Methodology Deep Dive
 
-Detailed breakdown with psychological mind mapping... (full content)
+## Full Flow
+Mindset drives everything. See main pipeline diagram in README.
+
+## Desktop vs Mobile Nuances
+... (add your observations here)
