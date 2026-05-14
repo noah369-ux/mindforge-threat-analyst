@@ -1,24 +1,33 @@
 # pipeline/behavioral_artifacts.py
-'''
+"""
 Behavioral Artifacts Stage
-Here I translate mindset hypotheses into observable actions and patterns.
-Drawn from real stress-testing on Windows, macOS, Android, and iOS environments over the past year.
-'''
+This stage captures observable behaviors from my hands-on testing across desktop and mobile.
+"""
 
-class BehavioralArtifactCollector:
-    def collect(self, observation: str, context: str = 'desktop') -> list:
-        '''Collect behavioral data based on my analyst mindset.'''
+class BehavioralArtifactsCollector:
+    def __init__(self):
+        self.desktop_artifacts = [
+            'Registry modifications (Run keys, services)',
+            'File creation in temp/system directories',
+            'Suspicious process injections or parent-child relationships',
+            'Network connections to C2 domains'
+        ]
+        self.mobile_artifacts = [
+            'Abnormal permission requests or usage',
+            'Background service persistence',
+            'Unusual battery/network data consumption',
+            'API calls to sensitive endpoints'
+        ]
+    
+    def collect(self, scenario: str, context: str = 'desktop') -> dict:
+        """Collect behavioral indicators based on my refined methodology."""
         if context == 'desktop':
-            return [
-                'Unusual process creation (e.g., cmd.exe spawning powershell.exe)',
-                'File writes to startup directories or registry Run keys',
-                'Suspicious network connections to C2 domains',
-                'Privilege escalation attempts via token manipulation'
-            ]
+            artifacts = self.desktop_artifacts
         else:
-            return [
-                'Background service starting without user interaction',
-                'Excessive permission requests (location, contacts, camera)',
-                'Outbound connections during idle periods',
-                'File access patterns outside normal app sandbox'
-            ]
+            artifacts = self.mobile_artifacts
+        return {
+            'scenario': scenario,
+            'artifacts': artifacts,
+            'timestamp': 'simulated',
+            'analyst_notes': 'These patterns emerged from my iterative testing over the past year.'
+        }

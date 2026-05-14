@@ -1,6 +1,9 @@
-# Psychological Mind Mapping & Analyst Decision Trees
+# docs/psychological-mind-mapping.md
+# Psychological Mind Mapping in MindForge
 
-## My Core Mindset Framework
-(Details from the mindset_stage.py - expand with your personal notes here)
+This document captures the mental models I developed over the last year...
 
-This document captures the psychological discipline I applied during a year of hands-on testing.
+## Key Principles
+- Assume breach
+- Hypothesis-driven investigation
+- etc.

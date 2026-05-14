@@ -1,23 +1,26 @@
 # pipeline/technical_signatures.py
-'''
+"""
 Technical Signatures Stage
-Convert behavioral artifacts into concrete, detectable technical indicators.
-This is where I bridge observation to actionable IOCs/Sigma/YARA patterns.'''
+Converts behavioral artifacts into concrete, actionable technical indicators.
+"""
 
-class TechnicalSignatureGenerator:
-    def generate(self, artifacts: list, context: str = 'desktop') -> list:
+class TechnicalSignatures:
+    def __init__(self):
+        self.mitre_mapping = {
+            'persistence': 'TA0003',
+            'execution': 'TA0002',
+            'exfiltration': 'TA0010'
+        }
+    
+    def generate_signatures(self, artifacts: dict) -> list:
+        """Generate technical signatures from behavioral data."""
         signatures = []
-        for artifact in artifacts:
-            if context == 'desktop':
-                signatures.append({
-                    'type': 'Sigma/Process',
-                    'indicator': f'Process creation matching {artifact}',
-                    'mitre': 'T1059 or T1547'
-                })
-            else:
-                signatures.append({
-                    'type': 'Android/iOS API',
-                    'indicator': f'Permission or network call related to {artifact}',
-                    'mitre': 'T1616 or T1114'
-                })
+        for artifact in artifacts.get('artifacts', []):
+            sig = {
+                'indicator': artifact,
+                'type': 'file_hash' if 'file' in artifact.lower() else 'behavior',
+                'mitre': self.mitre_mapping.get('persistence', 'T1547'),
+                'confidence': 'high' if 'persistence' in artifact.lower() else 'medium'
+            }
+            signatures.append(sig)
         return signatures
