@@ -1,0 +1,37 @@
+# rules/sigma_rules.yml
+# Sigma rules from my Detection Engineering stage - refined over the last year
+
+title: MindForge - Suspicious Desktop Persistence
+id: mindforge-001-desktop-persistence
+status: experimental
+description: Detects persistence techniques observed in my hands-on desktop malware analysis
+references:
+  - https://attack.mitre.org/techniques/T1547/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '.exe'
+    ParentImage|endswith: 'explorer.exe'
+    CommandLine|contains: 
+      - '--hidden'
+      - '/quiet'
+  condition: selection
+level: medium
+
+---
+
+title: MindForge - Mobile Permission Abuse
+id: mindforge-002-mobile-permission-abuse
+status: experimental
+description: Detects suspicious permission usage common in mobile threats
+logsource:
+  category: process_creation
+  product: android
+detection:
+  selection:
+    CommandLine|contains: ['READ_SMS', 'ACCESS_FINE_LOCATION']
+  condition: selection
+level: high
